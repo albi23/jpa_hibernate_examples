@@ -1,0 +1,33 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <!-- Define persistence unit -->
+    <persistence-unit name="jpa-hibernate-pu" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>com.example.apblue.jpahibernateexamples.model.Actor</class>
+        <class>com.example.apblue.jpahibernateexamples.model.ActorInfo</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Address</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Category</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Country</class>
+        <class>com.example.apblue.jpahibernateexamples.model.City</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Customer</class>
+        <class>com.example.apblue.jpahibernateexamples.model.CustomerList</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Film</class>
+        <class>com.example.apblue.jpahibernateexamples.model.FilmActor</class>
+        <class>com.example.apblue.jpahibernateexamples.model.FilmCategory</class>
+        <class>com.example.apblue.jpahibernateexamples.model.FilmList</class>
+        <class>com.example.apblue.jpahibernateexamples.model.FilmText</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Inventory</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Language</class>
+        <class>com.example.apblue.jpahibernateexamples.model.NicerButSlowerFilmList</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Payment</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Rental</class>
+        <class>com.example.apblue.jpahibernateexamples.model.SalesByStore</class>
+        <class>com.example.apblue.jpahibernateexamples.model.SalesByFilmCategory</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Staff</class>
+        <class>com.example.apblue.jpahibernateexamples.model.Store</class>
+        <class>com.example.apblue.jpahibernateexamples.model.StaffList</class>
+
+    </persistence-unit>
+</persistence>
