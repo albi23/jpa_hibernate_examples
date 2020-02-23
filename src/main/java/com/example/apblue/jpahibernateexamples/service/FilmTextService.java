@@ -1,4 +1,7 @@
 package com.example.apblue.jpahibernateexamples.service;
 
-public interface FilmTextService {
+import com.example.apblue.jpahibernateexamples.model.FilmText;
+import com.example.apblue.jpahibernateexamples.service.core.BaseService;
+
+public interface FilmTextService extends BaseService<FilmText> {
 }

@@ -1,4 +1,7 @@
 package com.example.apblue.jpahibernateexamples.service;
 
-public interface CountryService {
+import com.example.apblue.jpahibernateexamples.model.Country;
+import com.example.apblue.jpahibernateexamples.service.core.BaseService;
+
+public interface CountryService extends BaseService<Country> {
 }

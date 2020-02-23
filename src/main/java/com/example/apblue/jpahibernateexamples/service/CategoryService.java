@@ -1,4 +1,7 @@
 package com.example.apblue.jpahibernateexamples.service;
 
-public interface CategoryService {
+import com.example.apblue.jpahibernateexamples.model.Category;
+import com.example.apblue.jpahibernateexamples.service.core.BaseService;
+
+public interface CategoryService extends BaseService<Category> {
 }

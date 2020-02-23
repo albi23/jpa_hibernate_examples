@@ -1,28 +1,28 @@
 package com.example.apblue.jpahibernateexamples.ctrls;
 
 import com.example.apblue.jpahibernateexamples.ctrls.core.FindAllCtrl;
-import com.example.apblue.jpahibernateexamples.model.Actor;
-import com.example.apblue.jpahibernateexamples.service.ActorService;
+import com.example.apblue.jpahibernateexamples.model.Staff;
+import com.example.apblue.jpahibernateexamples.service.StaffService;
 import com.example.apblue.jpahibernateexamples.service.core.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/actor")
-public class ActorCtrl implements FindAllCtrl<Actor> {
+@RequestMapping(path = "/staff")
+public class StaffCtrl implements FindAllCtrl<Staff> {
 
-    private final ActorService actorService;
+    private final StaffService staffService;
 
     @Autowired
-    public ActorCtrl(ActorService actorService) {
-        this.actorService = actorService;
+    public StaffCtrl(StaffService staffService) {
+        this.staffService = staffService;
     }
 
 
     @Override
-    public BaseService<Actor> getService() {
-        return this.actorService;
+    public BaseService<Staff> getService() {
+        return this.staffService;
     }
 
 }

@@ -1,4 +1,7 @@
 package com.example.apblue.jpahibernateexamples.service;
 
-public interface InventoryService {
+import com.example.apblue.jpahibernateexamples.model.Inventory;
+import com.example.apblue.jpahibernateexamples.service.core.BaseService;
+
+public interface InventoryService extends BaseService<Inventory> {
 }

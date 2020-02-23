@@ -1,4 +1,7 @@
 package com.example.apblue.jpahibernateexamples.service;
 
-public interface CustomerListService {
+import com.example.apblue.jpahibernateexamples.model.CustomerList;
+import com.example.apblue.jpahibernateexamples.service.core.BaseService;
+
+public interface CustomerListService extends BaseService<CustomerList> {
 }

@@ -1,4 +1,7 @@
 package com.example.apblue.jpahibernateexamples.service;
 
-public interface FilmCategoryPKService {
+import com.example.apblue.jpahibernateexamples.model.FilmCategoryPK;
+import com.example.apblue.jpahibernateexamples.service.core.BaseService;
+
+public interface FilmCategoryPKService extends BaseService<FilmCategoryPK> {
 }

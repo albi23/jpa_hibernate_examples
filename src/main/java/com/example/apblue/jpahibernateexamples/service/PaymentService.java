@@ -1,4 +1,7 @@
 package com.example.apblue.jpahibernateexamples.service;
 
-public interface PaymentService {
+import com.example.apblue.jpahibernateexamples.model.Payment;
+import com.example.apblue.jpahibernateexamples.service.core.BaseService;
+
+public interface PaymentService extends BaseService<Payment> {
 }
