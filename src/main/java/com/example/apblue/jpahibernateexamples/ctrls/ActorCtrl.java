@@ -1,29 +1,27 @@
 package com.example.apblue.jpahibernateexamples.ctrls;
 
+import com.example.apblue.jpahibernateexamples.ctrls.core.FindAllCtrl;
 import com.example.apblue.jpahibernateexamples.model.Actor;
 import com.example.apblue.jpahibernateexamples.service.ActorService;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import com.example.apblue.jpahibernateexamples.service.core.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(path = "/actor")
-public class ActorCtrl {
+public class ActorCtrl implements FindAllCtrl<Actor> {
 
-    final ActorService actorService;
+    private final ActorService actorService;
 
+    @Autowired
     public ActorCtrl(ActorService actorService) {
         this.actorService = actorService;
     }
 
-    @CrossOrigin
-    @RequestMapping(method = RequestMethod.GET, path = "/all", produces = {"application/json"})
-    @Transactional
-    public List<Actor> getAllMovies(){
-        return actorService.getAll();
+
+    @Override
+    public BaseService<Actor> getService() {
+        return this.actorService;
     }
 }

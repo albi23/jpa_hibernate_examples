@@ -1,6 +1,6 @@
 package com.example.apblue.jpahibernateexamples.serviceImpl;
 
-import com.example.apblue.jpahibernateexamples.service.BaseService;
+import com.example.apblue.jpahibernateexamples.service.core.BaseService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -26,11 +26,15 @@ public abstract class BaseServiceImpl<E> implements BaseService<E> {
         return entityManager;
     }
 
-    public List<E> getAll() {
+    public List<E> findAll() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(persistentClass);
         Root<E> root = criteriaQuery.from(persistentClass);
         criteriaQuery.select(root);
         return entityManager.createQuery(criteriaQuery).getResultList();
+    }
+
+    public E merge(E entity) {
+        return this.getEntityManager().merge(entity);
     }
 }
