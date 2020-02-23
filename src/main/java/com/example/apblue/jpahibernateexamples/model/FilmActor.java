@@ -4,8 +4,7 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,25 +21,28 @@ import java.util.Date;
         @NamedQuery(name = "FilmActor.findByFilmId", query = "SELECT f FROM FilmActor f WHERE f.filmActorPK.filmId = :filmId"),
         @NamedQuery(name = "FilmActor.findByLastUpdate", query = "SELECT f FROM FilmActor f WHERE f.lastUpdate = :lastUpdate")})
 
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="filmActorPK")
-public class FilmActor  implements Serializable {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "filmActorPK")
+public class FilmActor implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
+    @JsonValue
     protected FilmActorPK filmActorPK;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date lastUpdate;
 
     @JoinColumn(name = "film_id", referencedColumnName = "film_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Film film;
 
     @JoinColumn(name = "actor_id", referencedColumnName = "actor_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JsonBackReference
     private Actor actor;
 
 
@@ -114,7 +116,7 @@ public class FilmActor  implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.FilmActor[ filmActorPK=" + filmActorPK + " ]";
+        return "FilmActor[ filmActorPK=" + filmActorPK + " ]";
     }
 
 }

@@ -4,6 +4,7 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -69,19 +70,20 @@ public class Address implements Serializable {
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date lastUpdate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "addressId")
     private Collection<Store> storeCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "addressId")
     private Collection<Customer> customerCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "addressId")
     private Collection<Staff> staffCollection;
 
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private City cityId;
 
     public Address() {
@@ -212,7 +214,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.Address[ addressId=" + addressId + " ]";
+        return "Address[ addressId=" + addressId + " ]";
     }
 
 }

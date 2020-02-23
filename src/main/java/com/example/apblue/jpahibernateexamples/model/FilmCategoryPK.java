@@ -80,7 +80,7 @@ public class FilmCategoryPK  implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.FilmCategoryPK[ filmId=" + filmId + ", categoryId=" + categoryId + " ]";
+        return "FilmCategoryPK[ filmId=" + filmId + ", categoryId=" + categoryId + " ]";
     }
 
 }

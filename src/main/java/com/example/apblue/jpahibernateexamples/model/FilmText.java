@@ -102,7 +102,7 @@ public class FilmText  implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.FilmText[ filmId=" + filmId + " ]";
+        return "FilmText[ filmId=" + filmId + " ]";
     }
 
 }

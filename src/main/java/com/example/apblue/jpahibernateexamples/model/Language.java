@@ -4,6 +4,7 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -46,12 +47,13 @@ public class Language  implements Serializable {
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date lastUpdate;
 
-    @OneToMany(mappedBy = "originalLanguageId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST},mappedBy = "originalLanguageId")
     private Collection<Film> filmCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "languageId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "languageId")
     private Collection<Film> filmCollection1;
 
 
@@ -132,7 +134,7 @@ public class Language  implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.Language[ languageId=" + languageId + " ]";
+        return "Language[ languageId=" + languageId + " ]";
     }
 
 }

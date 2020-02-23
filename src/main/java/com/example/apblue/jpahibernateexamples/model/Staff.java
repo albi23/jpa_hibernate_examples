@@ -4,6 +4,7 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -81,23 +82,24 @@ public class Staff implements Serializable {
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date lastUpdate;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "managerStaffId")
     private Store store;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "staffId")
     private Collection<Payment> paymentCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "staffId")
     private Collection<Rental> rentalCollection;
 
     @JoinColumn(name = "store_id", referencedColumnName = "store_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Store storeId;
 
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Address addressId;
 
 
@@ -253,7 +255,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.Staff[ staffId=" + staffId + " ]";
+        return "Staff[ staffId=" + staffId + " ]";
     }
 
 }

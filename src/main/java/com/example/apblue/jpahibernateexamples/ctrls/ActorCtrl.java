@@ -21,11 +21,7 @@ public class ActorCtrl {
     }
 
     @CrossOrigin
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/all",
-            produces = {"application/json"}
-    )
+    @RequestMapping(method = RequestMethod.GET, path = "/all", produces = {"application/json"})
     @Transactional
     public List<Actor> getAllMovies(){
         return actorService.getAll();

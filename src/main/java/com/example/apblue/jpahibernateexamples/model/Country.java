@@ -4,6 +4,7 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -46,6 +47,7 @@ public class Country  implements Serializable {
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date lastUpdate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryId")
@@ -120,7 +122,7 @@ public class Country  implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.Country[ countryId=" + countryId + " ]";
+        return "Country[ countryId=" + countryId + " ]";
     }
 
 }

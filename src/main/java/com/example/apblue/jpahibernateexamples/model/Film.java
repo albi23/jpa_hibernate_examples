@@ -4,6 +4,7 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -57,6 +58,7 @@ public class Film   implements Serializable {
 
     @Column(name = "release_year")
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date releaseYear;
 
     @Basic(optional = false)
@@ -90,23 +92,24 @@ public class Film   implements Serializable {
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date lastUpdate;
 
     @JoinColumn(name = "original_language_id", referencedColumnName = "language_id")
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Language originalLanguageId;
 
     @JoinColumn(name = "language_id", referencedColumnName = "language_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Language languageId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "film")
     private Collection<FilmActor> filmActorCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "filmId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "filmId")
     private Collection<Inventory> inventoryCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "film")
     private Collection<FilmCategory> filmCategoryCollection;
 
 
@@ -279,7 +282,7 @@ public class Film   implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.Film[ filmId=" + filmId + " ]";
+        return "Film[ filmId=" + filmId + " ]";
     }
 
 }

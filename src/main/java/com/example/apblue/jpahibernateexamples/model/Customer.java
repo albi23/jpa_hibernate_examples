@@ -4,7 +4,9 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -32,6 +34,7 @@ import java.util.List;
         @NamedQuery(name = "Customer.findByLastUpdate", query = "SELECT c FROM Customer c WHERE c.lastUpdate = :lastUpdate")})
 
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="customerId")
+@JsonIgnoreProperties(value = {"active", "modifiedBy", "modifiedTimestamp", "members", "staff"})
 public class Customer  implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -67,26 +70,28 @@ public class Customer  implements Serializable {
     @NotNull
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date createDate;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date lastUpdate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "customerId")
     private List<Payment> paymentCollection;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "customerId")
     private List<Rental> rentalCollection;
 
     @JoinColumn(name = "store_id", referencedColumnName = "store_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Store storeId;
 
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Address addressId;
 
 
@@ -218,7 +223,7 @@ public class Customer  implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.Customer[ customerId=" + customerId + " ]";
+        return "Customer[ customerId=" + customerId + " ]";
     }
 
 }

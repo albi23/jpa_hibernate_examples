@@ -4,6 +4,7 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -44,9 +45,10 @@ public class Category  implements Serializable {
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date lastUpdate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "category")
     private Collection<FilmCategory> filmCategoryCollection;
 
     public Category() {
@@ -117,7 +119,7 @@ public class Category  implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.Category[ categoryId=" + categoryId + " ]";
+        return "Category[ categoryId=" + categoryId + " ]";
     }
 
 }

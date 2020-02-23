@@ -4,7 +4,9 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -28,8 +30,8 @@ import java.util.List;
         @NamedQuery(name = "Actor.findByLastName", query = "SELECT a FROM Actor a WHERE a.lastName = :lastName"),
         @NamedQuery(name = "Actor.findByLastUpdate", query = "SELECT a FROM Actor a WHERE a.lastUpdate = :lastUpdate")})
 
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="actorId")
-public class Actor  implements Serializable  {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "actorId")
+public class Actor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,10 +54,12 @@ public class Actor  implements Serializable  {
     @Basic(optional = false)
     @NotNull
     @Column(name = "last_update")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
+    @JsonManagedReference
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "actor", fetch = FetchType.LAZY)
     private List<FilmActor> filmActorCollection = new ArrayList<>();
 
     public Actor() {
@@ -135,7 +139,7 @@ public class Actor  implements Serializable  {
 
     @Override
     public String toString() {
-        return "zemian.sakila.Actor[ actorId=" + actorId + " ]";
+        return "Actor[ actorId=" + actorId + " ]";
     }
 
 }

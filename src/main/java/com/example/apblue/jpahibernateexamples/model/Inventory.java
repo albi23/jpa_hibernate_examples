@@ -4,7 +4,9 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -25,6 +27,7 @@ import java.util.Date;
         @NamedQuery(name = "Inventory.findByLastUpdate", query = "SELECT i FROM Inventory i WHERE i.lastUpdate = :lastUpdate")})
 
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="inventoryId")
+@JsonIgnoreProperties(value = {"filmId"})
 public class Inventory implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -38,17 +41,18 @@ public class Inventory implements Serializable {
     @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date lastUpdate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventoryId")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "inventoryId")
     private Collection<Rental> rentalCollection;
 
     @JoinColumn(name = "store_id", referencedColumnName = "store_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Store storeId;
 
     @JoinColumn(name = "film_id", referencedColumnName = "film_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Film filmId;
 
 
@@ -127,7 +131,7 @@ public class Inventory implements Serializable {
 
     @Override
     public String toString() {
-        return "zemian.sakila.Inventory[ inventoryId=" + inventoryId + " ]";
+        return "Inventory[ inventoryId=" + inventoryId + " ]";
     }
 
 }
