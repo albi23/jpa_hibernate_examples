@@ -4,16 +4,19 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
 @Embeddable
-public class FilmCategoryPK implements Serializable {
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="filmId")
+public class FilmCategoryPK  implements Serializable {
 
 //    @Id
     @Basic(optional = false)

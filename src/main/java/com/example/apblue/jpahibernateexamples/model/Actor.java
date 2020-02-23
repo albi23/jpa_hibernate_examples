@@ -4,26 +4,18 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -35,7 +27,9 @@ import javax.xml.bind.annotation.XmlTransient;
         @NamedQuery(name = "Actor.findByFirstName", query = "SELECT a FROM Actor a WHERE a.firstName = :firstName"),
         @NamedQuery(name = "Actor.findByLastName", query = "SELECT a FROM Actor a WHERE a.lastName = :lastName"),
         @NamedQuery(name = "Actor.findByLastUpdate", query = "SELECT a FROM Actor a WHERE a.lastUpdate = :lastUpdate")})
-public class Actor implements Serializable {
+
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="actorId")
+public class Actor  implements Serializable  {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,7 +56,7 @@ public class Actor implements Serializable {
     private Date lastUpdate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
-    private Collection<FilmActor> filmActorCollection;
+    private List<FilmActor> filmActorCollection = new ArrayList<>();
 
     public Actor() {
     }
@@ -111,11 +105,11 @@ public class Actor implements Serializable {
     }
 
     @XmlTransient
-    public Collection<FilmActor> getFilmActorCollection() {
+    public List<FilmActor> getFilmActorCollection() {
         return filmActorCollection;
     }
 
-    public void setFilmActorCollection(Collection<FilmActor> filmActorCollection) {
+    public void setFilmActorCollection(List<FilmActor> filmActorCollection) {
         this.filmActorCollection = filmActorCollection;
     }
 

@@ -4,6 +4,9 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +30,8 @@ import java.util.Date;
         @NamedQuery(name = "Staff.findByUsername", query = "SELECT s FROM Staff s WHERE s.username = :username"),
         @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password"),
         @NamedQuery(name = "Staff.findByLastUpdate", query = "SELECT s FROM Staff s WHERE s.lastUpdate = :lastUpdate")})
+
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="staffId")
 public class Staff implements Serializable {
     private static final long serialVersionUID = 1L;
 

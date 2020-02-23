@@ -4,11 +4,14 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "actor_info")
@@ -18,6 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "ActorInfo.findByActorId", query = "SELECT a FROM ActorInfo a WHERE a.actorId = :actorId"),
         @NamedQuery(name = "ActorInfo.findByFirstName", query = "SELECT a FROM ActorInfo a WHERE a.firstName = :firstName"),
         @NamedQuery(name = "ActorInfo.findByLastName", query = "SELECT a FROM ActorInfo a WHERE a.lastName = :lastName")})
+
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="actorId")
 public class ActorInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -4,6 +4,9 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,7 +26,9 @@ import java.math.BigDecimal;
         @NamedQuery(name = "NicerButSlowerFilmList.findByPrice", query = "SELECT n FROM NicerButSlowerFilmList n WHERE n.price = :price"),
         @NamedQuery(name = "NicerButSlowerFilmList.findByLength", query = "SELECT n FROM NicerButSlowerFilmList n WHERE n.length = :length"),
         @NamedQuery(name = "NicerButSlowerFilmList.findByRating", query = "SELECT n FROM NicerButSlowerFilmList n WHERE n.rating = :rating")})
-public class NicerButSlowerFilmList implements Serializable {
+
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="fid")
+public class NicerButSlowerFilmList  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

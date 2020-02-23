@@ -1,6 +1,10 @@
 package com.example.apblue.jpahibernateexamples.serviceImpl;
 
+import com.example.apblue.jpahibernateexamples.model.Actor;
 import com.example.apblue.jpahibernateexamples.service.ActorService;
+import org.springframework.stereotype.Service;
 
-public class ActorServiceImpl implements ActorService {
+@Service
+public class ActorServiceImpl extends  BaseServiceImpl<Actor> implements ActorService {
+
 }

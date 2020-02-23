@@ -1,8 +1,7 @@
-/*
- *  Zemian Deng 2014
- */
-
 package com.example.apblue.jpahibernateexamples.model;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,12 +24,13 @@ import java.io.Serializable;
         @NamedQuery(name = "CustomerList.findByCountry", query = "SELECT c FROM CustomerList c WHERE c.country = :country"),
         @NamedQuery(name = "CustomerList.findByNotes", query = "SELECT c FROM CustomerList c WHERE c.notes = :notes"),
         @NamedQuery(name = "CustomerList.findBySid", query = "SELECT c FROM CustomerList c WHERE c.sid = :sid")})
-public class CustomerList implements Serializable {
+
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class CustomerList  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID")
     private short id;
 

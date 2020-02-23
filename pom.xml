@@ -32,13 +32,14 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <hibernate.version>5.2.13.Final</hibernate.version>
         <jackson.version>2.10.1</jackson.version>
+        <json-scopes-version>1.3.0</json-scopes-version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.blueveery</groupId>
             <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/lib/json-scopes-1.3.0-SNAPSHOT.jar</systemPath>
+            <systemPath>${project.basedir}/src/main/resources/lib/json-scopes-${json-scopes-version}-SNAPSHOT.jar</systemPath>
             <artifactId>json-scopes</artifactId>
             <version>1.3.0-SNAPSHOT</version>
         </dependency>

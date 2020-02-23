@@ -4,6 +4,9 @@
 
 package com.example.apblue.jpahibernateexamples.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,14 +27,15 @@ import java.io.Serializable;
         @NamedQuery(name = "StaffList.findByCity", query = "SELECT s FROM StaffList s WHERE s.city = :city"),
         @NamedQuery(name = "StaffList.findByCountry", query = "SELECT s FROM StaffList s WHERE s.country = :country"),
         @NamedQuery(name = "StaffList.findBySid", query = "SELECT s FROM StaffList s WHERE s.sid = :sid")})
+
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class StaffList implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID")
-    private short id;
+    private @NotNull Integer id;
 
     @Size(max = 91)
     @Column(name = "name")
@@ -75,11 +79,11 @@ public class StaffList implements Serializable {
     public StaffList() {
     }
 
-    public short getId() {
+    public @NotNull Integer getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(@NotNull Integer id) {
         this.id = id;
     }
 
