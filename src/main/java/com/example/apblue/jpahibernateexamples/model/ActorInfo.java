@@ -1,7 +1,6 @@
-/*
- *  Zemian Deng 2014
+/**
+ * @Author Albert Piekielny 2020
  */
-
 package com.example.apblue.jpahibernateexamples.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
