@@ -1,6 +1,9 @@
 package com.example.apblue.jpahibernateexamples.serviceImpl;
 
 import com.example.apblue.jpahibernateexamples.service.LanguageService;
+import com.example.apblue.jpahibernateexamples.model.Language;
+import org.springframework.stereotype.Service;
 
-public class LanguageServiceImpl implements LanguageService {
+@Service
+public class LanguageServiceImpl extends BaseServiceImpl<Language> implements LanguageService {
 }

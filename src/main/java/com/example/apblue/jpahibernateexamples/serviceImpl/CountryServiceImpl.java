@@ -1,6 +1,9 @@
 package com.example.apblue.jpahibernateexamples.serviceImpl;
 
 import com.example.apblue.jpahibernateexamples.service.CountryService;
+import com.example.apblue.jpahibernateexamples.model.Country;
+import org.springframework.stereotype.Service;
 
-public class CountryServiceImpl implements CountryService {
+@Service
+public class CountryServiceImpl extends BaseServiceImpl<Country> implements CountryService {
 }

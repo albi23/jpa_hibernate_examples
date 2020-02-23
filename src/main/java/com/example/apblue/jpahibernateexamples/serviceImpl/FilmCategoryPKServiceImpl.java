@@ -1,6 +1,9 @@
 package com.example.apblue.jpahibernateexamples.serviceImpl;
 
 import com.example.apblue.jpahibernateexamples.service.FilmCategoryPKService;
+import com.example.apblue.jpahibernateexamples.model.FilmCategoryPK;
+import org.springframework.stereotype.Service;
 
-public class FilmCategoryPKServiceImpl implements FilmCategoryPKService {
+@Service
+public class FilmCategoryPKServiceImpl extends BaseServiceImpl<FilmCategoryPK> implements FilmCategoryPKService {
 }

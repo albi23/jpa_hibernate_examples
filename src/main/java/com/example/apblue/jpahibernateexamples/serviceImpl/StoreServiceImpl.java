@@ -1,6 +1,9 @@
 package com.example.apblue.jpahibernateexamples.serviceImpl;
 
 import com.example.apblue.jpahibernateexamples.service.StoreService;
+import com.example.apblue.jpahibernateexamples.model.Store;
+import org.springframework.stereotype.Service;
 
-public class StoreServiceImpl implements StoreService {
+@Service
+public class StoreServiceImpl extends BaseServiceImpl<Store> implements StoreService {
 }
