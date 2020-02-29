@@ -14,7 +14,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>jpa-hibernate-examples</name>
     <description>Project for exercises JPA/Hibernate on Sakila DB</description>
-    <url>https://github.com/albi23/JFTT_Compiler</url>
+    <url>https://github.com/albi23/jpa_hibernate_examples</url>
 
     <inceptionYear>2020</inceptionYear>
     <developers>
